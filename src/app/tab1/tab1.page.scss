@@ -1,0 +1,20 @@
+/* Fondo de la barra para que resalte la letra */
+ion-segment {
+  background: rgba(10, 81, 233, 0.85); 
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Forzamos el color de la letra con las variables de Ionic */
+ion-segment-button {
+  /* 1. Color de la letra normal (Azul fuerte) */
+  --color: #dee1e6; 
+  
+  /* 2. Color de la letra cuando está seleccionado (Azul más oscuro) */
+  --color-checked: #002b5e; 
+  
+  /* 3. Color de la rayita de abajo */
+  --indicator-color: #002b5e; 
+
+  font-weight: bold;
+}

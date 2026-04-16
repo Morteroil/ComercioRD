@@ -1,0 +1,45 @@
+/* Estilos globales obligatorios de Ionic (No tocar) */
+@import "@ionic/angular/css/core.css";
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/* Importar las variables de color de tu tema */
+@import "./theme/variables.scss";
+
+/* --- EL NUEVO FONDO ANIME ANIMADO (GIF) --- */
+
+ion-content {
+  /* Usamos un GIF animado de una ciudad estilo Anime 16-bits.
+     El linear-gradient oscuro (50% negro) asegura que las luces del fondo 
+     se vean geniales, pero que tus tarjetas blancas sean lo principal. */
+  --background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('https://elbauldelasopiniones.wordpress.com/wp-content/uploads/2014/11/tumblr_mh7d3ujznk1r6bgrzo1_500.gif?w=584') 
+                no-repeat center center / cover;
+}
+
+/* Ajustamos las tarjetas para que parezcan cajas de luz sobre la noche */
+ion-card {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3) !important;
+  border-radius: 20px !important;
+  /* Fondo blanco sólido para que los textos negros se lean PERFECTO */
+  background: rgba(255, 255, 255, 0.95) !important; 
+  backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+ion-card-title {
+  font-weight: 800 !important;
+  color: #1a1a1a !important;
+}
+
+/* La barra de búsqueda también la hacemos blanca para que no se pierda */
+ion-searchbar {
+  --background: rgba(255, 255, 255, 0.95);
+}

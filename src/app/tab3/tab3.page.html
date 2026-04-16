@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-title>Añadir Negocio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <h2 style="color: white; text-shadow: 1px 1px 3px black;">Registra tu local</h2>
+  <p style="color: white; text-shadow: 1px 1px 3px black;">Llénalo y aparecerá mágicamente en el Directorio.</p>
+
+  <ion-list>
+    <ion-item>
+      <ion-input [(ngModel)]="nuevoNegocio.nombre" label="Nombre del Negocio" labelPlacement="floating" placeholder="Ej. Colmado Don Pepe"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input [(ngModel)]="nuevoNegocio.telefono" label="Teléfono" type="tel" labelPlacement="floating" placeholder="Ej. 809-555-0000"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input [(ngModel)]="nuevoNegocio.direccion" label="Dirección exacta o Ciudad" labelPlacement="floating" placeholder="Ej. Parque Duarte, Bonao"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea [(ngModel)]="nuevoNegocio.descripcion" label="¿Qué ofrece este lugar?" labelPlacement="floating" placeholder="Ej. Vendemos la mejor comida criolla de la zona..." rows="3"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-select [(ngModel)]="nuevoNegocio.categoria" label="Categoría" labelPlacement="floating">
+        <ion-select-option value="Comida">Comida</ion-select-option>
+        <ion-select-option value="Servicios">Servicios</ion-select-option>
+        <ion-select-option value="Tecnología">Tecnología</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-row>
+  <ion-col size="6">
+    <ion-item lines="none">
+      <ion-select label="Abre a las:" labelPlacement="floating" [(ngModel)]="nuevoNegocio.horaApertura">
+        <ion-select-option [value]="6">6:00 AM</ion-select-option>
+        <ion-select-option [value]="6.5">6:30 AM</ion-select-option>
+        <ion-select-option [value]="7">7:00 AM</ion-select-option>
+        <ion-select-option [value]="7.5">7:30 AM</ion-select-option>
+        <ion-select-option [value]="8">8:00 AM</ion-select-option>
+        <ion-select-option [value]="8.5">8:30 AM</ion-select-option>
+        </ion-select>
+    </ion-item>
+  </ion-col>
+  <ion-col size="6">
+    <ion-item lines="none">
+      <ion-select label="Cierra a las:" labelPlacement="floating" [(ngModel)]="nuevoNegocio.horaCierre">
+        <ion-select-option [value]="18">6:00 PM</ion-select-option>
+        <ion-select-option [value]="18.5">6:30 PM</ion-select-option>
+        <ion-select-option [value]="20">8:00 PM</ion-select-option>
+        <ion-select-option [value]="22">10:00 PM</ion-select-option>
+        <ion-select-option [value]="22.5">10:30 PM</ion-select-option>
+        <ion-select-option [value]="24">Medianoche</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-col>
+</ion-row>
+
+  </ion-list>
+
+  <br>
+
+  <ion-button expand="block" fill="outline" (click)="tomarFoto()" style="--color: white; --border-color: white; --border-width: 2px; font-weight: bold;">
+  <ion-icon slot="start" name="camera"></ion-icon> Tomar foto
+</ion-button>
+
+  @if (fotoUrl) {
+    <div class="ion-text-center ion-margin-top">
+      <img [src]="fotoUrl" alt="Foto" style="border-radius: 8px; max-width: 100%; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+    </div>
+  }
+
+  <br><br>
+  
+  <ion-button expand="full" color="tertiary" (click)="guardarNegocio()">
+    <ion-icon slot="start" name="save"></ion-icon> Guardar Registro
+  </ion-button>
+
+</ion-content>

@@ -1,0 +1,101 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>ComercioRD</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <ion-searchbar placeholder="Buscar negocios..." (ionInput)="buscarPorTexto($event)"></ion-searchbar>
+
+  <ion-segment [(ngModel)]="categoriaSeleccionada" (ionChange)="aplicarFiltros()">
+    <ion-segment-button value="todos"><ion-label>Todos</ion-label></ion-segment-button>
+    <ion-segment-button value="comida"><ion-label>Comida</ion-label></ion-segment-button>
+    <ion-segment-button value="servicios"><ion-label>Servicios</ion-label></ion-segment-button>
+    <ion-segment-button value="tecnología"><ion-label>Tecnología</ion-label></ion-segment-button>
+  </ion-segment>
+
+  <ion-grid class="ion-no-padding" style="margin-top: 10px;">
+    <ion-row>
+      <ion-col size="6" style="padding-right: 5px;">
+        <ion-item lines="none" style="border-radius: 10px; --background: rgba(255,255,255,0.9);">
+          <ion-select [(ngModel)]="calificacionMinima" (ionChange)="aplicarFiltros()" label="⭐ Valoración" labelPlacement="floating" interface="popover">
+            <ion-select-option [value]="0">Todas</ion-select-option>
+            <ion-select-option [value]="3">3+ Estrellas</ion-select-option>
+            <ion-select-option [value]="4">4+ Estrellas</ion-select-option>
+            <ion-select-option [value]="4.9">5 Estrellas</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      
+      <ion-col size="6" style="padding-left: 5px;">
+        <ion-item lines="none" style="border-radius: 10px; --background: rgba(255,255,255,0.9);">
+          <ion-select [(ngModel)]="filtroHorario" (ionChange)="aplicarFiltros()" label="🕒 Horario" labelPlacement="floating" interface="popover">
+            <ion-select-option value="todos">Cualquiera</ion-select-option>
+            <ion-select-option value="abierto">Abierto Ahora</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <br>
+
+  @for (negocio of negociosFiltrados; track negocio.id) {
+    <ion-card>
+  <img [alt]="negocio.nombre" [src]="negocio.imagen" />
+  <ion-card-header>
+    <ion-card-subtitle>{{ negocio.categoria }} • ⭐ {{ negocio.calificacion }}</ion-card-subtitle>
+    <ion-card-title>{{ negocio.nombre }}</ion-card-title>
+  </ion-card-header>
+  
+  <ion-card-content>
+    <p><b>📍 {{ negocio.direccion }}</b></p>
+    
+    <p style="margin-top: 5px;">
+      <b>🕒 Horario:</b> {{ formatearHora(negocio.horaApertura) }} a {{ formatearHora(negocio.horaCierre) }}
+      @if (estaAbierto(negocio.horaApertura, negocio.horaCierre)) {
+        <span style="color: #2dd36f; font-weight: bold; margin-left: 8px;">(Abierto Ahora)</span>
+      } @else {
+        <span style="color: #eb445a; font-weight: bold; margin-left: 8px;">(Cerrado)</span>
+      }
+    </p>
+
+    <p style="margin-top: 8px;">{{ negocio.descripcion }}</p>
+  </ion-card-content>
+  
+  <ion-row>
+    <ion-col size="3">
+      <ion-button fill="clear" expand="full" color="success" (click)="llamarNegocio(negocio.telefono)" style="font-size: 12px;">
+        <ion-icon slot="icon-only" name="call"></ion-icon>
+      </ion-button>
+    </ion-col>
+    
+    <ion-col size="3">
+      <ion-button fill="clear" expand="full" color="primary" (click)="abrirMapa(negocio)" style="font-size: 12px;">
+        <ion-icon slot="icon-only" name="navigate"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="3">
+      <ion-button fill="clear" expand="full" color="secondary" (click)="compartirNegocio(negocio)" style="font-size: 12px;">
+        <ion-icon slot="icon-only" name="share-social"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+    <ion-col size="3">
+      <ion-button fill="clear" expand="full" color="warning" (click)="escribirResena(negocio.nombre)" style="font-size: 12px;">
+        <ion-icon slot="icon-only" name="star"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+</ion-card>
+  }
+  
+  @if (negociosFiltrados.length === 0) {
+    <div class="ion-text-center" style="margin-top: 40px;">
+      <h3 style="color: white; text-shadow: 1px 1px 3px black;">No se encontraron negocios con esos filtros.</h3>
+    </div>
+  }
+
+</ion-content>
